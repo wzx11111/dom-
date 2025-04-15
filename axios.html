@@ -96,6 +96,25 @@
     <!-- 引入Axios库 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        function debounce(func, delay) {
+            let timer;
+            return function() {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    func.apply(this, arguments);
+                }, delay);
+            }
+        }
+        function throttle(func, delay) {
+            let lastTime = 0;
+            return function() {
+                const now = Date.now().getTime();
+                if (now - lastTime >= delay) {
+                    func.apply(this, arguments);
+                    lastTime = now;
+                }
+            }
+        }
         document.getElementById('fetchButton').addEventListener('click', function() {
             axios.get('https://s5.360game.cn/to5/mini/v21/category.html').then(function(res) {
             console.log(res.data.data,'111111111111111111111111111');
